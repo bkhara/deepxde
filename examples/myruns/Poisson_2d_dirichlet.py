@@ -62,8 +62,8 @@ model = dde.Model(data, net)
 
 model.compile("adam", lr=LR)
 losshistory, train_state = model.train(epochs=epochs)
-# model.compile("L-BFGS-B")
-# losshistory, train_state = model.train()
+model.compile("L-BFGS-B")
+losshistory, train_state = model.train()
 
 model.save(save_path=os.path.join(model_dir, 'p2d_d'), verbose=1)
 dde.saveplot(losshistory, train_state, issave=True, isplot=False)
