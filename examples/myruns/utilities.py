@@ -37,8 +37,9 @@ def query_points_structured_grid(nx, ny):
 
 
 def calc_l2_distance(gquad, f_eval_1, f_eval_2):
-    f1 = f_eval_1(gquad.gp)
-    f2 = f_eval_2(gquad.gp)
+    gp = np.stack((gquad.gpx, gquad.gpy),1)
+    f1 = f_eval_1(gp)
+    f2 = f_eval_2(gp)
     integrand = (f1 - f2)**2
     gpsum = gquad.gpw * integrand
     integral = np.sum(gpsum) * gquad.J

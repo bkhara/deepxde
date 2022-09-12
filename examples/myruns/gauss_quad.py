@@ -25,7 +25,7 @@ class GaussQuadrature():
 		if self.dim == 1:
 			self.gpx, self.gpw, self.J = self.create_GQ_scheme_1d()
 		elif self.dim == 2:
-			self.gpx, self.gpy, self.gpw, self.J, self.gp = self.create_GQ_scheme_2d() # gp is simply [gpx,gpy]
+			self.gpx, self.gpy, self.gpw, self.J = self.create_GQ_scheme_2d() # gp is simply [gpx,gpy]
 
 	def create_GQ_scheme_base(self, xRange, numpt):
 		res = gleg.leggauss(numpt)
@@ -51,7 +51,7 @@ class GaussQuadrature():
 		gp = np.stack((np.ravel(XX),np.ravel(YY)),1)
 		gpw = np.ravel(WW)
 		J = Jx*Jy
-		return gp[:,0], gp[:,1], gpw, J, gp
+		return gp[:,0], gp[:,1], gpw, J
 
 	def integrate(self, f_eval, f_integrand):
 		if self.dim == 1:
