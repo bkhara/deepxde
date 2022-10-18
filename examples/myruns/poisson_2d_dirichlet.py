@@ -62,11 +62,16 @@ model = dde.Model(data, net)
 
 model.compile("adam", lr=LR)
 losshistory, train_state = model.train(epochs=epochs)
+
 model.compile("L-BFGS-B")
 losshistory, train_state = model.train()
 
 model.save(save_path=os.path.join(model_dir, 'p2d_d'), verbose=1)
 dde.saveplot(losshistory, train_state, issave=True, isplot=False)
+
+model._test(False)
+np.savetxt(os.path.join(model_dir, 'x_train.txt'), model.train_state.X_train)
+np.savetxt(os.path.join(model_dir, 'x_test.txt'), model.train_state.X_test)
 # =================================================================================
 
 # error calculation
