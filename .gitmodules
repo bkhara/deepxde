@@ -1,0 +1,3 @@
+[submodule "amathlib"]
+	path = amathlib
+	url = https://github.com/bkhara/amathlib.git
