@@ -10,6 +10,8 @@ import utilities as mutils
 import json
 import pickle
 
+backend_name = os.environ["DDE_BACKEND"]
+
 pi = np.pi
 
 def calc_l2_distance_v2(gquad, f_eval_1, f_eval_2):
@@ -115,6 +117,14 @@ mutils.plot_contour(y_pred, y_true, model_dir, dump_dict)
 # =================================================================================
 # POST PROCESSING AND EXPERIMENTS
 # =================================================================================
+
+# print(model.data.train_x)
+num_boundary = model.data.num_boundary
+if backend_name == "tensorflow":
+    np.savetxt(os.path.join(model_dir, 'x_bo.txt'), model.data.train_x[0:num_boundary,:], delimiter=',')
+    np.savetxt(os.path.join(model_dir, 'x_domain.txt'), model.data.train_x[num_boundary:,:], delimiter=',')
+
+
 random_prediction = False
 experimental = False
 
@@ -136,7 +146,6 @@ if experimental:
     # uu = model.net(x)
     # res = pde(x, uu)
     # print("residual = \n", res)
-    backend_name = os.environ["DDE_BACKEND"]
 
     if backend_name == "tensorflow.compat.v1":
         op = pde(model.net.inputs, model.net.outputs)
